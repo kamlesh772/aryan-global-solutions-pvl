@@ -1,0 +1,6 @@
+# robots.txt for Aryan Global Solutions
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://solutions.aryanglobalsolutions.com/sitemap.xml
