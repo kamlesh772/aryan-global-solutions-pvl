@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
 import Services from './components/Services';
+import FeaturedProjects from './components/FeaturedProjects';
 import WhyChooseUs from './components/WhyChooseUs';
 import Portfolio from './components/Portfolio';
 import Industries from './components/Industries';
@@ -108,6 +109,7 @@ export default function App() {
           <ClientLogos />
           <Stats />
           <Services />
+          <FeaturedProjects />
           <TechStack />
           <WhyChooseUs />
           <Portfolio />
