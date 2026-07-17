@@ -39,7 +39,7 @@ const translations: Record<Language, Record<string, string>> = {
     tagline: 'Enterprise Software & AI Engineering',
     
     // Hero
-    heroTitle: 'Architecting $100M Enterprise Systems & AI Orchestrations',
+    heroTitle: 'Enterprise AI Solutions for Modern Businesses & AI Orchestrations',
     heroDesc: 'Aryan Global Solutions is an elite custom software engineering and intelligent automation agency. We build SLA-backed, high-performance, hardened architectures for Fortune 500 corporations and hyper-growth venture networks.',
     heroCtaPrimary: 'Engage Our Engineering Desk',
     heroCtaSecondary: 'Explore Case Studies',
@@ -90,7 +90,7 @@ const translations: Record<Language, Record<string, string>> = {
     companyName: 'أريان للحلول العالمية',
     tagline: 'هندسة البرمجيات للمؤسسات والذكاء الاصطناعي',
     
-    heroTitle: 'هندسة أنظمة المؤسسات الضخمة وتطبيقات الذكاء الاصطناعي',
+    heroTitle: 'حلول الذكاء الاصطناعي للمؤسسات الحديثة & تطبيقات الذكاء الاصطناعي',
     heroDesc: 'أريان للحلول العالمية هي وكالة نخبة لهندسة البرمجيات المخصصة والأتمتة الذكية. نقوم ببناء هياكل برمجية متطورة ومحمية ومدعومة باتفاقيات مستوى الخدمة (SLA) لمؤسسات فورتشن 500 والشركات سريعة النمو.',
     heroCtaPrimary: 'تواصل مع مكتب الهندسة لدينا',
     heroCtaSecondary: 'استكشف دراسات الحالة',
@@ -136,7 +136,7 @@ const translations: Record<Language, Record<string, string>> = {
     companyName: 'ARYAN GLOBAL SOLUTIONS',
     tagline: 'Logiciels d\'Entreprise & Ingénierie IA',
     
-    heroTitle: 'Architecturer des Systèmes d\'Entreprise & Orchestrations IA',
+    heroTitle: 'Solutions IA d\'Entreprise pour les Entreprises Modernes & Orchestrations IA',
     heroDesc: 'Aryan Global Solutions est une agence d\'élite en ingénierie logicielle sur mesure et automatisation intelligente. Nous concevons des architectures hautement performantes et sécurisées avec SLA pour les entreprises du Fortune 500 et les startups en hyper-croissance.',
     heroCtaPrimary: 'Engager Notre Bureau d\'Ingénierie',
     heroCtaSecondary: 'Explorer les Études de Cas',
@@ -182,7 +182,7 @@ const translations: Record<Language, Record<string, string>> = {
     companyName: 'ARYAN GLOBAL SOLUTIONS',
     tagline: 'Unternehmenssoftware & KI-Engineering',
     
-    heroTitle: 'Konzeption von $100M Enterprise-Systemen & KI-Orchestrierungen',
+    heroTitle: 'Enterprise-KI-Lösungen für moderne Unternehmen & KI-Orchestrierungen',
     heroDesc: 'Aryan Global Solutions ist eine Elite-Agentur für maßgeschneiderte Softwareentwicklung und intelligente Automatisierung. Wir erstellen SLA-gestützte, hochperformante Architekturen für Fortune-500-Konzerne und wachstumsstarke Startup-Netzwerke.',
     heroCtaPrimary: 'Unser Engineering-Team beauftragen',
     heroCtaSecondary: 'Fallstudien untersuchen',
