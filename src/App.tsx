@@ -29,12 +29,17 @@ import SchedulerModal from './components/SchedulerModal';
 import ComplianceModal from './components/ComplianceModal';
 
 export default function App() {
-  const [showCookieBanner, setShowCookieBanner] = useState(true);
+  const [showCookieBanner, setShowCookieBanner] = useState(false);
   const [isSchedulerOpen, setIsSchedulerOpen] = useState(false);
   const [isComplianceOpen, setIsComplianceOpen] = useState(false);
   const [complianceTab, setComplianceTab] = useState<'privacy' | 'terms' | 'refund' | 'cookies'>('privacy');
 
   useEffect(() => {
+    const consent = localStorage.getItem('cookieConsent');
+    if (!consent) {
+      setShowCookieBanner(true);
+    }
+
     const handleOpenScheduler = () => {
       setIsSchedulerOpen(true);
     };
@@ -136,7 +141,17 @@ export default function App() {
         
         <AnimatePresence>
           {showCookieBanner && (
-            <CookieConsent onClose={() => setShowCookieBanner(false)} />
+            <CookieConsent 
+              onAccept={() => {
+                localStorage.setItem('cookieConsent', 'accepted');
+                setShowCookieBanner(false);
+              }}
+              onDecline={() => {
+                localStorage.setItem('cookieConsent', 'declined');
+                setShowCookieBanner(false);
+              }}
+              onClose={() => setShowCookieBanner(false)}
+            />
           )}
         </AnimatePresence>
       </div>
