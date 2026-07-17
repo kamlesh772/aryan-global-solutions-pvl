@@ -206,7 +206,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold font-mono uppercase text-gray-500">Direct Operations Support</h4>
-                    <p className="text-sm text-gray-200 mt-1">+1-800-555-0199</p>
+                    <p className="text-sm text-gray-200 mt-1">+91 7878743214</p>
                   </div>
                 </div>
               </div>
@@ -330,7 +330,7 @@ export default function Contact() {
                       <input 
                         type="tel" 
                         name="phone"
-                        placeholder="+1 (555) 000-0000"
+                        placeholder="+91 7878743214"
                         value={form.phone}
                         onChange={handleInputChange}
                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all duration-300"

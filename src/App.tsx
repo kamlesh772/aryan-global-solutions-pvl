@@ -62,7 +62,7 @@ export default function App() {
       "image": "https://aryanglobalsolutions.com/og-image.jpg",
       "@id": "https://aryanglobalsolutions.com",
       "url": "https://aryanglobalsolutions.com",
-      "telephone": "+1-800-555-0199",
+      "telephone": "+91 7878743214",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "100 Tech Venture Way",

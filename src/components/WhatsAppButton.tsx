@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { MessageCircle, Mail, Calendar } from 'lucide-react';
 
 export default function WhatsAppButton() {
-  const whatsappUrl = 'https://api.whatsapp.com/send?phone=18005550199&text=Hello%20Aryan%20Global%20Solutions,%20I%20would%20like%20to%20enquire%20about%20your%20software%20engineering%20services.';
+  const whatsappUrl = 'https://wa.me/917878743214?text=Hello%20Aryan%20Global%20Solutions,%20I%20want%20to%20discuss%20my%20project.';
   const emailUrl = 'mailto:solutions@aryanglobalsolutions.com?subject=Enterprise%20Software%20Inquiry';
 
   const items = [
