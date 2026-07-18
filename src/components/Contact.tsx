@@ -11,7 +11,9 @@ import {
   DollarSign, 
   User, 
   Building, 
-  Send 
+  Send,
+  Globe,
+  Clock
 } from 'lucide-react';
 
 const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -26,6 +28,7 @@ export default function Contact() {
     company: '',
     email: '',
     phone: '',
+    country: '',
     projectType: '',
     budget: '',
     message: '',
@@ -39,21 +42,27 @@ export default function Contact() {
     let error = '';
     if (name === 'name' && !value.trim()) {
       error = 'Full Name is required';
+    } else if (name === 'company' && !value.trim()) {
+      error = 'Company Name is required';
     } else if (name === 'email') {
       if (!value.trim()) {
-        error = 'Email is required';
+        error = 'Business Email is required';
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
         error = 'Please enter a valid corporate email';
       }
+    } else if (name === 'phone' && !value.trim()) {
+      error = 'Phone Number is required';
+    } else if (name === 'country' && !value.trim()) {
+      error = 'Country is required';
     } else if (name === 'projectType' && !value) {
-      error = 'Please select a Project Type';
+      error = 'Please select a required service';
     } else if (name === 'budget' && !value) {
-      error = 'Please select a Project Budget';
+      error = 'Please select an estimated budget range';
     } else if (name === 'message') {
       if (!value.trim()) {
         error = 'Project description is required';
-      } else if (value.trim().length < 10) {
-        error = 'Please write at least 10 characters detailing your objectives';
+      } else if (value.trim().length < 15) {
+        error = 'Please write at least 15 characters detailing your objectives';
       }
     }
     return error;
@@ -81,7 +90,16 @@ export default function Contact() {
 
     // Validate all fields
     const newErrors: Record<string, string> = {};
-    const fieldsToValidate: (keyof typeof form)[] = ['name', 'email', 'projectType', 'budget', 'message'];
+    const fieldsToValidate: (keyof typeof form)[] = [
+      'name', 
+      'company', 
+      'email', 
+      'phone', 
+      'country', 
+      'projectType', 
+      'budget', 
+      'message'
+    ];
     
     fieldsToValidate.forEach(field => {
       const err = validateField(field as string, form[field]);
@@ -92,7 +110,6 @@ export default function Contact() {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
-      // Scroll to top of form or shake
       return;
     }
 
@@ -149,89 +166,172 @@ export default function Contact() {
     window.open(`https://wa.me/917878743214?text=${text}`, '_blank', 'noopener,noreferrer');
   };
 
+  const handleScheduleClick = () => {
+    window.dispatchEvent(new CustomEvent('open-scheduler'));
+  };
+
   return (
     <section id="contact" className="py-24 px-6 relative bg-[#050816] overflow-hidden">
       
       {/* Visual background flare */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-600/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-xs font-semibold tracking-widest text-cyan-400 uppercase mb-3 font-mono">Get in Touch</h2>
-          <p className="text-3xl sm:text-4xl font-black tracking-tight text-white leading-tight">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-xs font-semibold tracking-widest text-cyan-400 uppercase mb-3 font-mono">
+              Get in Touch
+            </h2>
+          </motion.div>
+          <motion.h3
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl font-black tracking-tight text-white leading-tight"
+          >
             Let’s Build Something Magnificent
-          </p>
-          <p className="mt-4 text-gray-400 text-sm sm:text-base leading-relaxed">
+          </motion.h3>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-4 text-gray-400 text-sm sm:text-base leading-relaxed animate-pulse"
+          >
             Initiate your digital transformation today. Request a custom fixed-price quote or schedule an architectural discovery call with our partners.
-          </p>
+          </motion.p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Info Column */}
+          {/* Left Column: Quick Contact & Business Hours */}
           <div className="lg:col-span-5 space-y-8">
+            
             <div className="bg-[#090d22]/40 border border-white/5 backdrop-blur-md rounded-2xl p-8 space-y-6">
-              <h3 className="text-xl font-bold text-white tracking-wide">Contact Information</h3>
+              <h3 className="text-xl font-bold text-white tracking-wide">
+                Quick Contact Desk
+              </h3>
               <p className="text-sm text-gray-400 leading-relaxed font-normal">
-                Have immediate technical questions? Direct your requirements directly to our consulting desks.
+                Skip the form and connect with our design and engineering desks immediately through your preferred channel.
               </p>
 
-              <div className="space-y-4 pt-4">
-                <div className="flex gap-4 items-start">
-                  <div className="p-3 rounded-xl bg-white/5 text-cyan-400 border border-white/10">
-                    <MapPin className="h-5 w-5" />
+              {/* 4 Premium Quick Contact Cards */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                
+                {/* WhatsApp */}
+                <button
+                  onClick={handleWhatsAppClick}
+                  className="group flex flex-col items-start p-4 bg-white/5 hover:bg-emerald-500/10 border border-white/5 hover:border-emerald-500/30 rounded-xl transition-all duration-300 text-left cursor-pointer relative overflow-hidden"
+                >
+                  <div className="p-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:scale-110 transition-transform">
+                    <WhatsAppIcon className="h-5 w-5" />
                   </div>
-                  <div>
-                    <h4 className="text-xs font-bold font-mono uppercase text-gray-500">Corporate Headquarters</h4>
-                    <p className="text-sm text-gray-200 mt-1">100 Tech Venture Way, Silicon Valley, CA 94025, USA</p>
-                  </div>
-                </div>
+                  <h4 className="mt-3 text-xs font-bold text-white uppercase tracking-wider font-mono">
+                    WhatsApp Chat
+                  </h4>
+                  <p className="text-[11px] text-gray-400 mt-1 line-clamp-1 group-hover:text-emerald-300">
+                    +91 7878743214
+                  </p>
+                </button>
 
-                <div className="flex gap-4 items-start">
-                  <div className="p-3 rounded-xl bg-white/5 text-indigo-400 border border-white/10">
+                {/* Email */}
+                <a
+                  href="mailto:solutions@aryanglobalsolutions.com"
+                  className="group flex flex-col items-start p-4 bg-white/5 hover:bg-cyan-500/10 border border-white/5 hover:border-cyan-500/30 rounded-xl transition-all duration-300 text-left relative overflow-hidden"
+                >
+                  <div className="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:scale-110 transition-transform">
                     <Mail className="h-5 w-5" />
                   </div>
-                  <div>
-                    <h4 className="text-xs font-bold font-mono uppercase text-gray-500">Global Sales Desk</h4>
-                    <p className="text-sm text-cyan-400 mt-1 hover:underline">
-                      <a href="mailto:solutions@aryanglobalsolutions.com">solutions@aryanglobalsolutions.com</a>
-                    </p>
-                  </div>
-                </div>
+                  <h4 className="mt-3 text-xs font-bold text-white uppercase tracking-wider font-mono">
+                    Email Sales
+                  </h4>
+                  <p className="text-[11px] text-gray-400 mt-1 line-clamp-1 group-hover:text-cyan-300">
+                    solutions@ags.com
+                  </p>
+                </a>
 
-                <div className="flex gap-4 items-start">
-                  <div className="p-3 rounded-xl bg-white/5 text-purple-400 border border-white/10">
+                {/* Schedule a Meeting */}
+                <button
+                  onClick={handleScheduleClick}
+                  className="group flex flex-col items-start p-4 bg-white/5 hover:bg-indigo-500/10 border border-white/5 hover:border-indigo-500/30 rounded-xl transition-all duration-300 text-left cursor-pointer relative overflow-hidden"
+                >
+                  <div className="p-2.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 group-hover:scale-110 transition-transform">
+                    <Calendar className="h-5 w-5" />
+                  </div>
+                  <h4 className="mt-3 text-xs font-bold text-white uppercase tracking-wider font-mono">
+                    Schedule call
+                  </h4>
+                  <p className="text-[11px] text-gray-400 mt-1 line-clamp-1 group-hover:text-indigo-300">
+                    Book virtual slot
+                  </p>
+                </button>
+
+                {/* Phone Call */}
+                <a
+                  href="tel:+917878743214"
+                  className="group flex flex-col items-start p-4 bg-white/5 hover:bg-purple-500/10 border border-white/5 hover:border-purple-500/30 rounded-xl transition-all duration-300 text-left relative overflow-hidden"
+                >
+                  <div className="p-2.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-purple-400 group-hover:scale-110 transition-transform">
                     <Phone className="h-5 w-5" />
                   </div>
-                  <div>
-                    <h4 className="text-xs font-bold font-mono uppercase text-gray-500">Direct Operations Support</h4>
-                    <p className="text-sm text-gray-200 mt-1">+91 7878743214</p>
-                  </div>
+                  <h4 className="mt-3 text-xs font-bold text-white uppercase tracking-wider font-mono">
+                    Direct Call
+                  </h4>
+                  <p className="text-[11px] text-gray-400 mt-1 line-clamp-1 group-hover:text-purple-300">
+                    +91 7878743214
+                  </p>
+                </a>
+
+              </div>
+
+              {/* 5. Business Hours Block */}
+              <div className="mt-6 p-4 rounded-xl bg-white/[0.02] border border-white/5 flex items-center gap-4">
+                <div className="p-3 rounded-lg bg-cyan-400/10 border border-cyan-400/20 text-cyan-400">
+                  <Clock className="h-5 w-5 animate-spin-slow" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold font-mono uppercase text-gray-500 tracking-wider">
+                    Business Hours
+                  </h4>
+                  <p className="text-sm font-semibold text-white mt-0.5">
+                    Monday–Saturday
+                  </p>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    9:00 AM – 7:00 PM IST
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Corporate Location Reference Card */}
+            <div className="bg-gradient-to-br from-[#0c102b] to-[#090d22] border border-white/5 rounded-2xl p-8 relative overflow-hidden group shadow-xl">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:scale-150 transition-all duration-500" />
+              <div className="flex gap-3 items-start">
+                <div className="p-3 rounded-xl bg-white/5 text-cyan-400 border border-white/10 shrink-0">
+                  <MapPin className="h-5 w-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold font-mono uppercase text-gray-500 tracking-wider">
+                    Corporate Headquarters
+                  </h4>
+                  <p className="text-sm text-gray-200 mt-1">
+                    100 Tech Venture Way, Silicon Valley, CA 94025, USA
+                  </p>
                 </div>
               </div>
             </div>
 
-            {/* Premium discovery scheduler CTA Card */}
-            <div className="bg-gradient-to-br from-[#0c102b] to-[#090d22] border border-white/5 rounded-2xl p-8 relative overflow-hidden group shadow-xl">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:scale-150 transition-all duration-500" />
-              <div className="flex items-center gap-2 text-xs font-semibold tracking-widest text-cyan-400 uppercase font-mono">
-                <Calendar className="h-4 w-4 animate-pulse" /> Priority Consultation
-              </div>
-              <h4 className="text-lg font-bold text-white mt-4">Want a direct 30-minute discovery call?</h4>
-              <p className="text-xs text-gray-400 mt-2 leading-relaxed font-normal">
-                Speak directly with an enterprise architect. We will map out your database, suggest integrations, and outline estimated budgets.
-              </p>
-              <a 
-                href="mailto:solutions@aryanglobalsolutions.com?subject=Discovery Call Request" 
-                className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full text-xs font-bold bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-all duration-300"
-              >
-                Schedule via Email
-              </a>
-            </div>
           </div>
 
-          {/* Right Form Column */}
+          {/* Right Column: Upgraded Contact Form */}
           <div className="lg:col-span-7 bg-[#090d22]/80 border border-white/10 rounded-2xl p-6 md:p-10 relative shadow-2xl backdrop-blur-xl">
             <AnimatePresence mode="wait">
               {!submitted ? (
@@ -277,7 +377,7 @@ export default function Contact() {
                     {/* Company */}
                     <div>
                       <label className="block text-xs font-bold font-mono text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <Building className="h-3.5 w-3.5 text-indigo-400" /> Company
+                        <Building className="h-3.5 w-3.5 text-indigo-400" /> Company Name *
                       </label>
                       <input 
                         type="text" 
@@ -285,16 +385,32 @@ export default function Contact() {
                         placeholder="Acme Corp"
                         value={form.company}
                         onChange={handleInputChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all duration-300"
+                        className={`w-full bg-white/5 border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
+                          errors.company 
+                            ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/20' 
+                            : 'border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
+                        }`}
                       />
+                      <AnimatePresence>
+                        {errors.company && (
+                          <motion.p 
+                            initial={{ opacity: 0, height: 0, y: -5 }}
+                            animate={{ opacity: 1, height: 'auto', y: 0 }}
+                            exit={{ opacity: 0, height: 0, y: -5 }}
+                            className="text-xs text-red-400 font-mono mt-1.5"
+                          >
+                            {errors.company}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Email */}
+                    {/* Business Email */}
                     <div>
                       <label className="block text-xs font-bold font-mono text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <Mail className="h-3.5 w-3.5 text-purple-400" /> Corporate Email *
+                        <Mail className="h-3.5 w-3.5 text-purple-400" /> Business Email *
                       </label>
                       <input 
                         type="email" 
@@ -322,10 +438,10 @@ export default function Contact() {
                       </AnimatePresence>
                     </div>
 
-                    {/* Phone */}
+                    {/* Phone Number */}
                     <div>
                       <label className="block text-xs font-bold font-mono text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <Phone className="h-3.5 w-3.5 text-cyan-400" /> Phone Number
+                        <Phone className="h-3.5 w-3.5 text-cyan-400" /> Phone Number *
                       </label>
                       <input 
                         type="tel" 
@@ -333,16 +449,63 @@ export default function Contact() {
                         placeholder="+91 7878743214"
                         value={form.phone}
                         onChange={handleInputChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all duration-300"
+                        className={`w-full bg-white/5 border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
+                          errors.phone 
+                            ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/20' 
+                            : 'border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
+                        }`}
                       />
+                      <AnimatePresence>
+                        {errors.phone && (
+                          <motion.p 
+                            initial={{ opacity: 0, height: 0, y: -5 }}
+                            animate={{ opacity: 1, height: 'auto', y: 0 }}
+                            exit={{ opacity: 0, height: 0, y: -5 }}
+                            className="text-xs text-red-400 font-mono mt-1.5"
+                          >
+                            {errors.phone}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Project Type Dropdown */}
-                    <div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* Country Field */}
+                    <div className="md:col-span-1">
                       <label className="block text-xs font-bold font-mono text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <Briefcase className="h-3.5 w-3.5 text-indigo-400" /> Project Type *
+                        <Globe className="h-3.5 w-3.5 text-emerald-400" /> Country *
+                      </label>
+                      <input 
+                        type="text" 
+                        name="country"
+                        placeholder="India"
+                        value={form.country}
+                        onChange={handleInputChange}
+                        className={`w-full bg-white/5 border rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none transition-all duration-300 ${
+                          errors.country 
+                            ? 'border-red-500/50 focus:border-red-500 focus:ring-1 focus:ring-red-500/20' 
+                            : 'border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
+                        }`}
+                      />
+                      <AnimatePresence>
+                        {errors.country && (
+                          <motion.p 
+                            initial={{ opacity: 0, height: 0, y: -5 }}
+                            animate={{ opacity: 1, height: 'auto', y: 0 }}
+                            exit={{ opacity: 0, height: 0, y: -5 }}
+                            className="text-xs text-red-400 font-mono mt-1.5"
+                          >
+                            {errors.country}
+                          </motion.p>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Service Required Dropdown */}
+                    <div className="md:col-span-1">
+                      <label className="block text-xs font-bold font-mono text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                        <Briefcase className="h-3.5 w-3.5 text-indigo-400" /> Service Required *
                       </label>
                       <div className="relative">
                         <select 
@@ -355,7 +518,7 @@ export default function Contact() {
                               : 'border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
                           }`}
                         >
-                          <option value="" disabled className="text-gray-500 bg-[#0c102b]">Select Project Type</option>
+                          <option value="" disabled className="text-gray-500 bg-[#0c102b]">Select Required Service</option>
                           {projectTypes.map((type) => (
                             <option key={type} value={type} className="bg-[#050816] text-white">
                               {type}
@@ -382,10 +545,10 @@ export default function Contact() {
                       </AnimatePresence>
                     </div>
 
-                    {/* Project Budget Dropdown */}
-                    <div>
+                    {/* Estimated Budget Dropdown */}
+                    <div className="md:col-span-1">
                       <label className="block text-xs font-bold font-mono text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <DollarSign className="h-3.5 w-3.5 text-purple-400" /> Project Budget *
+                        <DollarSign className="h-3.5 w-3.5 text-purple-400" /> Estimated Budget *
                       </label>
                       <div className="relative">
                         <select 
@@ -398,7 +561,7 @@ export default function Contact() {
                               : 'border-white/10 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30'
                           }`}
                         >
-                          <option value="" disabled className="text-gray-500 bg-[#0c102b]">Select Budget Range</option>
+                          <option value="" disabled className="text-gray-500 bg-[#0c102b]">Select Estimated Budget</option>
                           {budgets.map((b) => (
                             <option key={b} value={b} className="bg-[#050816] text-white">
                               {b}
@@ -426,10 +589,10 @@ export default function Contact() {
                     </div>
                   </div>
 
-                  {/* Message / Details */}
+                  {/* Project Description (Project Objectives) */}
                   <div>
                     <label className="block text-xs font-bold font-mono text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                      <MessageSquare className="h-3.5 w-3.5 text-cyan-400" /> Project Objectives & Message *
+                      <MessageSquare className="h-3.5 w-3.5 text-cyan-400" /> Project Description *
                     </label>
                     <textarea 
                       name="message"
@@ -457,62 +620,74 @@ export default function Contact() {
                     </AnimatePresence>
                   </div>
 
-                  {/* Submit Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                  {/* Submit Button */}
+                  <div className="pt-2">
                     <button
                       type="submit"
                       disabled={loading}
-                      className="flex-1 py-4 rounded-xl text-xs font-bold tracking-wider uppercase text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:from-indigo-500 hover:via-purple-500 hover:to-cyan-400 shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full py-4 rounded-xl text-xs font-bold tracking-wider uppercase text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:from-indigo-500 hover:via-purple-500 hover:to-cyan-400 shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer"
                     >
                       {loading ? (
                         <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                       ) : (
                         <>
                           <Send className="h-3.5 w-3.5 text-cyan-200" />
-                          <span>Send Inquiry</span>
+                          <span>Submit Request</span>
                         </>
                       )}
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={handleWhatsAppClick}
-                      className="flex-1 py-4 rounded-xl text-xs font-bold tracking-wider uppercase text-white bg-emerald-600 hover:bg-emerald-500 border border-emerald-500/30 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-emerald-600/10"
-                    >
-                      <WhatsAppIcon className="h-4.5 w-4.5" />
-                      <span>WhatsApp Us</span>
                     </button>
                   </div>
                 </motion.form>
               ) : (
+                // Upgraded premium success animation block
                 <motion.div 
                   key="success"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="flex flex-col items-center justify-center py-12 text-center"
+                  className="flex flex-col items-center justify-center py-16 text-center"
                 >
                   <div className="relative mb-6">
-                    {/* Glowing outer aura */}
-                    <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-xl animate-pulse" />
-                    <div className="relative w-16 h-16 bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 rounded-full flex items-center justify-center animate-bounce">
-                      <CheckCircle2 className="h-8 w-8" />
+                    {/* Glowing outer circles */}
+                    <div className="absolute inset-0 bg-cyan-500/30 rounded-full blur-2xl animate-pulse scale-150" />
+                    <div className="absolute -inset-4 bg-indigo-500/10 rounded-full animate-ping opacity-40" />
+                    <div className="relative w-20 h-20 bg-gradient-to-tr from-cyan-400 to-indigo-500 text-white rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30">
+                      <CheckCircle2 className="h-10 w-10 text-white" />
                     </div>
                   </div>
                   
-                  <h3 className="text-2xl font-black text-white tracking-wide uppercase font-mono">
-                    Submission Transmitted!
-                  </h3>
+                  {/* Dynamic Required Success Message Text */}
+                  <motion.h3 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-2xl sm:text-3xl font-black text-white tracking-wide uppercase font-mono bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-indigo-200"
+                  >
+                    Thank you!
+                  </motion.h3>
                   
-                  <p className="mt-4 text-sm text-gray-300 max-w-md leading-relaxed font-normal">
-                    Thank you, <span className="text-cyan-400 font-bold">{form.name}</span>{form.company ? ` from ${form.company}` : ''}. Your technical inquiry regarding <span className="text-white font-semibold">{form.projectType}</span> has been encrypted and securely transmitted.
-                  </p>
+                  <motion.p 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="mt-4 text-base sm:text-lg text-gray-200 max-w-md leading-relaxed font-semibold"
+                  >
+                    Our team will contact you within 24 hours.
+                  </motion.p>
                   
-                  <p className="mt-2 text-xs text-gray-500 font-normal">
-                    An enterprise solutions architect will connect with you via <span className="text-gray-400 font-semibold">{form.email}</span> within 1 business hour.
-                  </p>
+                  <motion.p 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="mt-2 text-xs text-gray-400 max-w-sm font-normal"
+                  >
+                    An enterprise solution expert has been notified of your project requirements for <span className="text-cyan-400 font-bold">{form.projectType || 'General Consultation'}</span>.
+                  </motion.p>
                   
-                  <button
+                  <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
                     onClick={() => {
                       setSubmitted(false);
                       setForm({
@@ -520,16 +695,17 @@ export default function Contact() {
                         company: '',
                         email: '',
                         phone: '',
+                        country: '',
                         projectType: '',
                         budget: '',
                         message: '',
                       });
                       setErrors({});
                     }}
-                    className="mt-8 px-6 py-2.5 rounded-full text-xs font-bold bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors cursor-pointer"
+                    className="mt-10 px-8 py-3 rounded-xl text-xs font-bold tracking-wider uppercase text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
                   >
-                    Submit New Inquiry
-                  </button>
+                    Submit Another Query
+                  </motion.button>
                 </motion.div>
               )}
             </AnimatePresence>

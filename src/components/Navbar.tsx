@@ -36,6 +36,7 @@ export default function Navbar() {
     { name: t('portfolio'), key: 'portfolio' as const, href: '#portfolio' },
     { name: t('process'), key: 'process' as const, href: '#process' },
     { name: t('pricing'), key: 'pricing' as const, href: '#pricing' },
+    { name: t('consultation'), key: 'consultation' as const, href: '#consultation' },
     { name: t('faq'), key: 'faq' as const, href: '#faq' },
   ];
 
@@ -43,10 +44,12 @@ export default function Navbar() {
     { name: t('hireDevs'), key: 'hire' as const },
     { name: t('careers'), key: 'careers' as const },
     { name: t('resources'), key: 'resources' as const },
+    { name: t('clientPortal'), key: 'portal' as const },
   ];
 
   const languages: { code: Language; label: string }[] = [
     { code: 'en', label: 'English' },
+    { code: 'hi', label: 'हिन्दी' },
     { code: 'ar', label: 'العربية' },
     { code: 'fr', label: 'Français' },
     { code: 'de', label: 'Deutsch' },

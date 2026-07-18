@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { ShieldCheck, Award, Zap, Clock, CodeXml, ThumbsUp } from 'lucide-react';
+import { useApp } from '../context/AppContext';
 
 const pillars = [
   {
@@ -41,17 +42,19 @@ const pillars = [
 ];
 
 export default function WhyChooseUs() {
+  const { t } = useApp();
+
   return (
     <section id="why-choose-us" className="py-24 px-6 relative bg-gradient-to-b from-transparent to-[#070b1e]/60">
       <div className="max-w-7xl mx-auto">
         
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-xs font-semibold tracking-widest text-cyan-400 uppercase mb-3">Why Us</h2>
+          <h2 className="text-xs font-semibold tracking-widest text-cyan-400 uppercase mb-3">{t('Why Us')}</h2>
           <p className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            Uncompromising Standards of Digital Execution
+            {t('Uncompromising Standards of Digital Execution')}
           </p>
           <p className="mt-4 text-gray-400 text-sm sm:text-base">
-            We do not just write code; we partner with enterprise leaders and modern startups to construct high-performance digital flywheels.
+            {t('We do not just write code; we partner with enterprise leaders and modern startups to construct high-performance digital flywheels.')}
           </p>
         </div>
 
@@ -74,10 +77,10 @@ export default function WhyChooseUs() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors duration-200">
-                    {pillar.title}
+                    {t(pillar.title)}
                   </h3>
                   <p className="mt-3 text-sm text-gray-400 leading-relaxed font-normal">
-                    {pillar.desc}
+                    {t(pillar.desc)}
                   </p>
                 </div>
               </div>

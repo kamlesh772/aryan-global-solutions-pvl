@@ -1,6 +1,14 @@
 # robots.txt for Aryan Global Solutions
+# Optimized for Google Search Console and SEO indexing
+
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /config/
+Disallow: /drafts/
+
+# Host preference
+Host: solutions.aryanglobalsolutions.com
 
 # Sitemaps
 Sitemap: https://solutions.aryanglobalsolutions.com/sitemap.xml

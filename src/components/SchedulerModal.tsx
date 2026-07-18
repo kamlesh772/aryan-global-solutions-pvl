@@ -153,7 +153,7 @@ export default function SchedulerModal({ isOpen, onClose }: SchedulerModalProps)
                   {/* Calendly Inline Embed with elegant fallback */}
                   <div className="border border-white/10 rounded-2xl overflow-hidden bg-white/5 h-[340px] relative">
                     <iframe
-                      src="https://calendly.com/solutions-ags/30min?embed_domain=aryanglobalsolutions.com&embed_type=Inline"
+                      src="https://calendly.com/aryanglobalsolutions?embed_domain=aryanglobalsolutions.com&embed_type=Inline"
                       width="100%"
                       height="100%"
                       frameBorder="0"
@@ -163,7 +163,7 @@ export default function SchedulerModal({ isOpen, onClose }: SchedulerModalProps)
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-[#090d22] z-0">
                       <p className="text-xs text-gray-500 font-mono mb-4">// SECURE CALENDLY DISPATCH CHANNEL</p>
                       <a
-                        href="https://calendly.com/solutions-ags/30min"
+                        href="https://calendly.com/aryanglobalsolutions"
                         target="_blank"
                         rel="noreferrer"
                         className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl tracking-wider uppercase inline-flex items-center gap-2"

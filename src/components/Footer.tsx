@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Mail, Send, Check } from 'lucide-react';
+import { useApp } from '../context/AppContext';
 
 export default function Footer() {
+  const { t } = useApp();
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -53,19 +55,19 @@ export default function Footer() {
             </a>
             
             <p className="text-sm text-gray-400 leading-relaxed font-normal max-w-sm">
-              We design, build, and deploy premium enterprise software, AI-powered automation grids, and high-conversion client systems globally.
+              {t('We design, build, and deploy premium enterprise software, AI-powered automation grids, and high-conversion client systems globally.')}
             </p>
 
             {/* Premium Newsletter Box */}
             <div className="space-y-3 max-w-sm pt-4">
-              <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-gray-400">Engineering Briefs</h4>
-              <p className="text-xs text-gray-500">Subscribe for quarterly audits, system patterns, and case studies.</p>
+              <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-gray-400">{t('Engineering Briefs')}</h4>
+              <p className="text-xs text-gray-500">{t('Subscribe for quarterly audits, system patterns, and case studies.')}</p>
               
               <form onSubmit={handleSubscribe} className="relative flex items-center mt-2">
                 <input 
                   type="email" 
                   required
-                  placeholder="name@company.com"
+                  placeholder={t('name@company.com')}
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-4 pr-12 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-cyan-500 transition-colors"
@@ -79,19 +81,19 @@ export default function Footer() {
                 </button>
               </form>
               {subscribed && (
-                <p className="text-[10px] text-emerald-400 font-mono">✓ Subscribed successfully! Thank you.</p>
+                <p className="text-[10px] text-emerald-400 font-mono">{t('✓ Subscribed successfully! Thank you.')}</p>
               )}
             </div>
           </div>
 
           {/* Column 2: Corporate Links */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-gray-500">Company</h4>
+            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-gray-500">{t('Company')}</h4>
             <ul className="space-y-2">
               {corporateLinks.map((link) => (
                 <li key={link.name}>
                   <a href={link.href} className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors font-normal">
-                    {link.name}
+                    {t(link.name)}
                   </a>
                 </li>
               ))}
@@ -100,12 +102,12 @@ export default function Footer() {
 
           {/* Column 3: Solutions Links */}
           <div className="lg:col-span-2 space-y-4">
-            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-gray-500">Core Capabilities</h4>
+            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-gray-500">{t('Core Capabilities')}</h4>
             <ul className="space-y-2">
               {capabilityLinks.map((link) => (
                 <li key={link.name}>
                   <a href={link.href} className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors font-normal">
-                    {link.name}
+                    {t(link.name)}
                   </a>
                 </li>
               ))}
@@ -114,7 +116,7 @@ export default function Footer() {
 
           {/* Column 4: Compliance & Support */}
           <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-gray-500">Compliance & Trust</h4>
+            <h4 className="text-xs font-bold font-mono uppercase tracking-widest text-gray-500">{t('Compliance & Trust')}</h4>
             <ul className="space-y-2">
               {complianceLinks.map((link) => (
                 <li key={link.name}>
@@ -122,7 +124,7 @@ export default function Footer() {
                     onClick={link.action} 
                     className="text-xs sm:text-sm text-gray-400 hover:text-white transition-colors font-normal text-left block w-full focus:outline-none cursor-pointer"
                   >
-                    {link.name}
+                    {t(link.name)}
                   </button>
                 </li>
               ))}
@@ -137,14 +139,14 @@ export default function Footer() {
         {/* Lower Metadata Row */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-600">
           <div>
-            © 2026 Aryan Global Solutions. All rights reserved.
+            {t('© 2026 Aryan Global Solutions. All rights reserved.')}
           </div>
           <div className="flex gap-4">
-            <span>Silicon Valley</span>
+            <span>{t('Silicon Valley')}</span>
             <span>•</span>
-            <span>London</span>
+            <span>{t('London')}</span>
             <span>•</span>
-            <span>Dubai</span>
+            <span>{t('Dubai')}</span>
           </div>
         </div>
 

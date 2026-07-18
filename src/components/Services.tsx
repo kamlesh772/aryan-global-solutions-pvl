@@ -9,6 +9,7 @@ import {
   Cloud, 
   ArrowRight 
 } from 'lucide-react';
+import { useApp } from '../context/AppContext';
 
 const services = [
   {
@@ -56,6 +57,8 @@ const services = [
 ];
 
 export default function Services() {
+  const { t } = useApp();
+  
   const handleScrollToContact = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -80,7 +83,7 @@ export default function Services() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-xs font-semibold tracking-widest text-cyan-400 uppercase mb-3 font-mono">
-              Capabilities
+              {t('services')}
             </h2>
           </motion.div>
           
@@ -91,7 +94,7 @@ export default function Services() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-3xl sm:text-4xl font-black tracking-tight text-white leading-tight"
           >
-            Our Core Services
+            {t('Our Core Services')}
           </motion.h3>
           
           <motion.p
@@ -101,7 +104,7 @@ export default function Services() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-4 text-gray-400 text-sm sm:text-base leading-relaxed"
           >
-            Enterprise-grade AI, Software Engineering and Digital Transformation Solutions.
+            {t('Discover how we deploy robust, SLA-backed software platforms and intelligent machine learning networks to scale your operation.')}
           </motion.p>
         </div>
 
@@ -138,18 +141,18 @@ export default function Services() {
 
                     {/* Service Title */}
                     <h4 className="mt-6 text-lg font-bold text-white tracking-wide group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-cyan-300 transition-all duration-300">
-                      {srv.title}
+                      {t(srv.title)}
                     </h4>
 
                     {/* Service Description */}
                     <p className="mt-3 text-sm text-gray-400 leading-relaxed font-normal">
-                      {srv.description}
+                      {t(srv.description)}
                     </p>
                   </div>
 
                   {/* Aesthetic arrow indicator on hover */}
                   <div className="mt-6 flex items-center gap-1 text-xs font-bold font-mono tracking-wider text-cyan-400 uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
-                    <span>Enquire Now</span>
+                    <span>{t('Enquire Now')}</span>
                     <ArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </div>
@@ -170,7 +173,7 @@ export default function Services() {
               onClick={handleScrollToContact}
               className="px-8 py-4 rounded-full text-xs font-bold tracking-wider uppercase text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:from-indigo-500 hover:via-purple-500 hover:to-cyan-400 shadow-xl shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all duration-300 inline-flex items-center gap-2 cursor-pointer border border-white/10"
             >
-              <span>Schedule a Free Consultation</span>
+              <span>{t('Book a Free Consultation')}</span>
               <ArrowRight className="h-3.5 w-3.5 text-cyan-200" />
             </button>
           </motion.div>

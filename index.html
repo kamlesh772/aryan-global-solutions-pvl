@@ -12,6 +12,52 @@
     <meta name="author" content="Aryan Global Solutions" />
     <meta name="robots" content="index, follow" />
 
+    <!-- Security Meta Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https://images.unsplash.com https://*.run.app https://*.google.com; connect-src 'self' https://*.run.app https://www.googletagmanager.com https://*.google-analytics.com; frame-src 'self' https://*.google.com; media-src 'self'; object-src 'none';" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+
+    <!-- PWA Manifest & Theme Settings -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#050816" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- Structured JSON-LD Data (SEO Audit) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Aryan Global Solutions",
+      "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&h=630&q=80",
+      "url": "https://solutions.aryanglobalsolutions.com/",
+      "telephone": "+91 7878743214",
+      "priceRange": "$$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "100 Tech Venture Way",
+        "addressLocality": "Silicon Valley",
+        "addressRegion": "CA",
+        "postalCode": "94025",
+        "addressCountry": "US"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/aryanglobalsolutions",
+        "https://twitter.com/aryanglobal_ai"
+      ]
+    }
+    </script>
+
+    <!-- Performance Optimization: Preconnect & DNS-Prefetch for Core Web Vitals -->
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://solutions.aryanglobalsolutions.com/" />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://solutions.aryanglobalsolutions.com/" />
@@ -29,13 +75,32 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M30,20 L70,20 L80,50 L50,80 L20,50 Z' fill='none' stroke='%2306b6d4' stroke-width='8'/%3E%3Cpath d='M35,35 L65,35 L50,65 Z' fill='%236366f1'/%3E%3C/svg%3E" />
 
-    <!-- Google Analytics (Placeholder / Configurable) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GA_PLACEHOLDER"></script>
+    <!-- Google Search Console (Verification Tag) -->
+    <meta name="google-site-verification" content="%VITE_GSC_VERIFICATION_TAG%" />
+
+    <!-- Google Analytics 4 (GA4) with Safeties -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GA_PLACEHOLDER');
+      (function() {
+        var gaId = "%VITE_GA_MEASUREMENT_ID%";
+        // Only load if the placeholder was replaced with a valid G- ID at build time
+        if (gaId && gaId !== "%" + "VITE_GA_MEASUREMENT_ID%" && gaId.indexOf("G-") === 0) {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+          document.head.appendChild(script);
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId, {
+            'anonymize_ip': true,
+            'cookie_flags': 'SameSite=None;Secure'
+          });
+          window.gtag = gtag;
+        } else {
+          console.warn("Google Analytics 4 (GA4): Active placeholder mode. To start tracking live visits, set VITE_GA_MEASUREMENT_ID in your environment.");
+        }
+      })();
     </script>
   </head>
   <body class="bg-[#050816] text-white">
