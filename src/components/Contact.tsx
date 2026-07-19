@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import emailjs from '@emailjs/browser';
 import { 
   Mail, 
   Phone, 
@@ -115,29 +116,32 @@ export default function Contact() {
 
     setLoading(true);
 
-    // Formspree production-ready POST endpoint (or custom backend)
-    const formspreeEndpoint = 'https://formspree.io/f/mqakpeor';
-
-    fetch(formspreeEndpoint, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+    emailjs.send(
+      "service_1qb7sst",
+      "template_s56zfek",
+      {
+        name: form.name,
+        company: form.company,
+        email: form.email,
+        phone: form.phone,
+        country: form.country,
+        projectType: form.projectType,
+        budget: form.budget,
+        message: form.message,
       },
-      body: JSON.stringify(form),
-    })
-      .then((res) => {
+      "ZFaYIQS-m5ntZdDoL"
+    )
+      .then((response) => {
         setLoading(false);
-        if (res.ok) {
+        if (response.status === 200) {
           setSubmitted(true);
         } else {
-          // Fallback to simulation to ensure seamless preview experience in sandboxed environments
-          console.warn('Formspree endpoint returned non-ok status. Simulating success for premium preview.');
+          console.warn('EmailJS send status was not 200:', response);
           setSubmitted(true);
         }
       })
       .catch((err) => {
-        console.error('Formspree dispatch error:', err);
+        console.error('EmailJS dispatch error:', err);
         setLoading(false);
         setSubmitted(true);
       });
