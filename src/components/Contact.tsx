@@ -38,6 +38,7 @@ export default function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validateField = (name: string, value: string) => {
     let error = '';
@@ -86,7 +87,7 @@ export default function Contact() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate all fields
@@ -115,36 +116,42 @@ export default function Contact() {
     }
 
     setLoading(true);
+    setSubmitError(null);
 
-    emailjs.send(
-      "service_1qb7sst",
-      "template_s56zfek",
-      {
-        name: form.name,
-        company: form.company,
-        email: form.email,
-        phone: form.phone,
-        country: form.country,
-        projectType: form.projectType,
-        budget: form.budget,
-        message: form.message,
-      },
-      "ZFaYIQS-m5ntZdDoL"
-    )
-      .then((response) => {
-        setLoading(false);
-        if (response.status === 200) {
-          setSubmitted(true);
-        } else {
-          console.warn('EmailJS send status was not 200:', response);
-          setSubmitted(true);
+    try {
+      const response = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          name: form.name,
+          company: form.company,
+          email: form.email,
+          phone: form.phone,
+          country: form.country,
+          projectType: form.projectType,
+          budget: form.budget,
+          message: form.message,
+        },
+        {
+          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
         }
-      })
-      .catch((err) => {
-        console.error('EmailJS dispatch error:', err);
-        setLoading(false);
+      );
+
+      setLoading(false);
+      console.log('[EmailJS] Full success response received:', response);
+      if (response.status === 200) {
         setSubmitted(true);
-      });
+      } else {
+        const statusError = `Status: ${response.status} - ${response.text || 'No response text available'}`;
+        console.warn('[EmailJS] Received non-200 success response:', statusError);
+        setSubmitError(statusError);
+      }
+    } catch (err: any) {
+      setLoading(false);
+      console.error('[EmailJS] Full dispatch error received:', err);
+      const errorDetails = err?.text || err?.message || JSON.stringify(err) || 'Unknown error occurred';
+      setSubmitError(`Failed to send. Error details: ${errorDetails}`);
+    }
   };
 
   const projectTypes = [
@@ -641,6 +648,20 @@ export default function Contact() {
                       )}
                     </button>
                   </div>
+
+                  <AnimatePresence>
+                    {submitError && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0, y: -10 }}
+                        animate={{ opacity: 1, height: 'auto', y: 0 }}
+                        exit={{ opacity: 0, height: 0, y: -10 }}
+                        className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono text-center flex flex-col gap-1.5"
+                      >
+                        <span className="font-bold uppercase tracking-wider text-[10px]">Transmission Error</span>
+                        <span className="text-gray-300 font-sans font-medium">{submitError}</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.form>
               ) : (
                 // Upgraded premium success animation block
