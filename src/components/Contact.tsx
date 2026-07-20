@@ -159,7 +159,10 @@ export default function Contact() {
     };
 
     try {
-      console.log('[EmailJS] Initiating send request...');
+      console.log("SERVICE =", serviceId);
+      console.log("TEMPLATE =", templateId);
+      console.log("PUBLIC =", publicKey);
+
       const response = await emailjs.send(
         serviceId,
         templateId,
@@ -178,7 +181,10 @@ export default function Contact() {
       }
     } catch (err: any) {
       setLoading(false);
-      console.error('[EmailJS] Full dispatch error received:', err);
+      console.error(err);
+      console.error(err.status);
+      console.error(err.text);
+      console.error(err.message);
       const errorDetails = err?.text || err?.message || JSON.stringify(err) || 'Unknown error occurred';
       setSubmitError(`Failed to send. Error details: ${errorDetails}`);
     }
