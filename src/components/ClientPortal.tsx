@@ -119,7 +119,7 @@ export default function ClientPortal() {
   
   // Auth state
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [email, setEmail] = useState('partner@aryanglobal.com');
+  const [email, setEmail] = useState('aryanjain772@gmail.com');
   const [password, setPassword] = useState('••••••••••••');
   const [rememberMe, setRememberMe] = useState(true);
   const [loginError, setLoginError] = useState('');

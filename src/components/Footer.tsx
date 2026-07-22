@@ -130,7 +130,7 @@ export default function Footer() {
               ))}
             </ul>
             <div className="pt-4 flex items-center gap-1.5 text-[10px] font-mono text-gray-500">
-              <Mail className="h-3 w-3 text-cyan-400" /> solutions@aryanglobalsolutions.com
+              <Mail className="h-3 w-3 text-cyan-400" /> aryanjain772@gmail.com
             </div>
           </div>
 

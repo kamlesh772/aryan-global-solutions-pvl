@@ -3,7 +3,7 @@ import { MessageCircle, Mail, Calendar } from 'lucide-react';
 
 export default function WhatsAppButton() {
   const whatsappUrl = 'https://wa.me/917878743214?text=Hello%20Aryan%20Global%20Solutions,%20I%20want%20to%20discuss%20my%20project.';
-  const emailUrl = 'mailto:solutions@aryanglobalsolutions.com?subject=Enterprise%20Software%20Inquiry';
+  const emailUrl = 'mailto:aryanjain772@gmail.com?subject=Enterprise%20Software%20Inquiry';
 
   const items = [
     {

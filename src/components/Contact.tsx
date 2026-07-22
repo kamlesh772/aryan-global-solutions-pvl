@@ -290,7 +290,7 @@ export default function Contact() {
 
                 {/* Email */}
                 <a
-                  href="mailto:solutions@aryanglobalsolutions.com"
+                  href="mailto:aryanjain772@gmail.com"
                   className="group flex flex-col items-start p-4 bg-white/5 hover:bg-cyan-500/10 border border-white/5 hover:border-cyan-500/30 rounded-xl transition-all duration-300 text-left relative overflow-hidden"
                 >
                   <div className="p-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:scale-110 transition-transform">
@@ -300,7 +300,7 @@ export default function Contact() {
                     Email Sales
                   </h4>
                   <p className="text-[11px] text-gray-400 mt-1 line-clamp-1 group-hover:text-cyan-300">
-                    solutions@ags.com
+                    aryanjain772@gmail.com
                   </p>
                 </a>
 
