@@ -48,9 +48,9 @@ export default function Contact() {
       error = 'Company Name is required';
     } else if (name === 'email') {
       if (!value.trim()) {
-        error = 'Business Email is required';
+        error = 'Mail is required';
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        error = 'Please enter a valid corporate email';
+        error = 'Please enter a valid mail address';
       }
     } else if (name === 'phone' && !value.trim()) {
       error = 'Phone Number is required';
@@ -118,35 +118,6 @@ export default function Contact() {
     setLoading(true);
     setSubmitError(null);
 
-    const maskKey = (key: string | undefined): string => {
-      if (!key) return '(undefined/empty)';
-      if (key.length <= 8) return '****';
-      return `${key.substring(0, 4)}...${key.substring(key.length - 4)}`;
-    };
-
-    const getEnvOrFallback = (val: any, fallback: string): string => {
-      if (!val || typeof val !== 'string' || val.trim() === '' || val === 'undefined') {
-        return fallback;
-      }
-      return val.trim();
-    };
-
-    const serviceId = getEnvOrFallback(import.meta.env.VITE_EMAILJS_SERVICE_ID, "service_1qb7sst");
-    const templateId = getEnvOrFallback(import.meta.env.VITE_EMAILJS_TEMPLATE_ID, "template_s56zfek");
-    const publicKey = getEnvOrFallback(import.meta.env.VITE_EMAILJS_PUBLIC_KEY, "ZFaYIQS-m5ntZdDoL");
-
-    console.log('[EmailJS] Service ID:', serviceId);
-    console.log('[EmailJS] Template ID:', templateId);
-    console.log('[EmailJS] Public Key:', maskKey(publicKey));
-
-    if (!publicKey || publicKey.trim() === '') {
-      setLoading(false);
-      const errMessage = "Public key is empty or undefined. Cannot proceed with email dispatch.";
-      console.error('[EmailJS] Key Validation Failed:', errMessage);
-      setSubmitError(errMessage);
-      return;
-    }
-
     const payload = {
       name: form.name,
       company: form.company,
@@ -159,19 +130,17 @@ export default function Contact() {
     };
 
     try {
-      console.log("SERVICE =", serviceId);
-      console.log("TEMPLATE =", templateId);
-      console.log("PUBLIC =", publicKey);
+      emailjs.init({
+        publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      });
 
       const response = await emailjs.send(
-        serviceId,
-        templateId,
-        payload,
-        publicKey
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        payload
       );
 
       setLoading(false);
-      console.log('[EmailJS] Full success response received:', response);
       if (response.status === 200) {
         setSubmitted(true);
       } else {
@@ -181,11 +150,11 @@ export default function Contact() {
       }
     } catch (err: any) {
       setLoading(false);
-      console.error(err);
-      console.error(err.status);
-      console.error(err.text);
-      console.error(err.message);
-      const errorDetails = err?.text || err?.message || JSON.stringify(err) || 'Unknown error occurred';
+      console.error('[EmailJS] Network error details:', err);
+      console.error('Error status:', err?.status);
+      console.error('Error text:', err?.text);
+      console.error('Error message:', err?.message);
+      const errorDetails = err?.text || err?.message || (typeof err === 'object' ? JSON.stringify(err) : String(err)) || 'Unknown error occurred';
       setSubmitError(`Failed to send. Error details: ${errorDetails}`);
     }
   };
@@ -454,10 +423,10 @@ export default function Contact() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Business Email */}
+                    {/* Mail */}
                     <div>
                       <label className="block text-xs font-bold font-mono text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                        <Mail className="h-3.5 w-3.5 text-purple-400" /> Business Email *
+                        <Mail className="h-3.5 w-3.5 text-purple-400" /> Mail *
                       </label>
                       <input 
                         type="email" 

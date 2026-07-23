@@ -151,7 +151,7 @@ export default function ClientPortal() {
     setTimeout(() => {
       setIsLoggingIn(false);
       if (!email.includes('@')) {
-        setLoginError('Please enter a valid business email address.');
+        setLoginError('Please enter a valid mail address.');
         return;
       }
       setIsLoggedIn(true);
@@ -254,7 +254,7 @@ export default function ClientPortal() {
                     <Lock className="h-6 w-6" />
                   </div>
                   <h3 className="text-lg font-bold text-white tracking-wide">Secure Partner Login</h3>
-                  <p className="text-xs text-gray-400 mt-1">Use corporate email for demo login access.</p>
+                  <p className="text-xs text-gray-400 mt-1">Use mail address for demo login access.</p>
                 </div>
 
                 <form onSubmit={handleLogin} className="space-y-5">
@@ -266,7 +266,7 @@ export default function ClientPortal() {
                   )}
 
                   <div>
-                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 font-mono">Business Email</label>
+                    <label className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 font-mono">Mail</label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-500">
                         <Mail className="h-4 w-4" />

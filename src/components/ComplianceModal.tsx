@@ -102,7 +102,7 @@ export default function ComplianceModal({ isOpen, onClose, initialTab = 'privacy
                       
                       <h5 className="font-bold text-white mt-4">1. Information Collection & Ingestion</h5>
                       <p>
-                        We limit client information gathering strictly to details submitted through authorized consultation forms (Name, Corporate Email, Phone, Project Descriptions) or established enterprise OAuth communication gateways. We do not engage in automated scraping or unauthorized metadata scanning of your servers.
+                        We limit client information gathering strictly to details submitted through authorized consultation forms (Name, Mail, Phone, Project Descriptions) or established enterprise OAuth communication gateways. We do not engage in automated scraping or unauthorized metadata scanning of your servers.
                       </p>
 
                       <h5 className="font-bold text-white mt-4">2. Server-Side Data Isolation</h5>
